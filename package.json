@@ -1,0 +1,25 @@
+{
+  "name": "steam-analyst",
+  "version": "0.0.1",
+  "description": "Get the latest prices from the steam marketplace",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolanmiu/steam-analyst.git"
+  },
+  "keywords": [
+    "steam",
+    "analyst",
+    "node",
+    "price"
+  ],
+  "author": "Dolan Miu",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dolanmiu/steam-analyst/issues"
+  },
+  "homepage": "https://github.com/dolanmiu/steam-analyst#readme"
+}
