@@ -25,7 +25,7 @@ export class Miner implements IMiner {
         }
         return html;
     }
-    
+
     run() {
         this.scheduler.lambda = this.mine(counter, 100).then(items => {
             if (items.length !== 100) {
@@ -57,7 +57,7 @@ export class Miner implements IMiner {
                 if (html === "") {
                     return reject();
                 }
-                
+
                 this.formatter.format(html).done((items) => {
                     var itemsString = JSON.stringify(items);
                     if (itemsString.includes("FAILED")) {

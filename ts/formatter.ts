@@ -5,6 +5,6 @@ export interface IFormatter {
 export class Formatter {
     
     format(html: string) : Promise<string> {
-        
+        return null;
     }
 }
