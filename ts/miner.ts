@@ -26,7 +26,7 @@ export class Miner implements IMiner {
         return html;
     }
 
-    run() {
+    run(): void {
         this.scheduler.lambda = this.mine(counter, 100).then(items => {
             if (items.length !== 100) {
                 console.info('Scheduler found no more items, page count is now reset. Last page at: ' + counter);

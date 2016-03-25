@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/dolanmiu/steam-analyst/issues"
   },
-  "homepage": "https://github.com/dolanmiu/steam-analyst#readme"
+  "homepage": "https://github.com/dolanmiu/steam-analyst#readme",
+  "dependencies": {
+    "html-to-json": "^0.6.0"
+  }
 }

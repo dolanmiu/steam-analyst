@@ -1,9 +1,9 @@
 export interface IScheduler {
     lambda: (pageNumber: number, count: number) => void;
-    run();
+    run(): void;
 }
 
-export class Scheduler {
+export class Scheduler implements IScheduler {
 
     private interval: number;
 
@@ -14,8 +14,8 @@ export class Scheduler {
     }
 
 
-    run() {
+    run(): void {
         setInterval(this.lambda(), this.interval);
     }
-    
+
 }
