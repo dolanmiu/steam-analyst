@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "es6",
         "sourceMap": true,
-        "outDir": "../build",
         "removeComments": true,
         "preserveConstEnums": true,
         "outFile": "../build/index.js"

@@ -1,9 +1,10 @@
 import * as request from "request";
 import {IFormatter} from "./formatter";
 import {IScheduler} from "./scheduler";
+import {Item} from "./models/item"
 
 interface IMiner {
-    mine(pageNumber: number, count: number): Promise<string[]>;
+    run(lambda: (items: Array<Item>) => void): void;
 }
 
 export class Miner implements IMiner {
@@ -26,25 +27,24 @@ export class Miner implements IMiner {
         return html;
     }
 
-    run(): void {
-        this.scheduler.lambda = this.mine(counter, 100).then(items => {
-            if (items.length !== 100) {
-                console.info('Scheduler found no more items, page count is now reset. Last page at: ' + counter);
-                counter = 0;
-            }
-            items.forEach(element => {
-                var newItem = new Item(element);
-                updateItem(newItem);
+    run(lambda: (items: Array<Item>) => void): void {
+        var counter = 0;
+
+        this.scheduler.run(() => {
+            this.mine(counter, 100).then(items => {
+                if (items.length !== 100) {
+                    counter = 0;
+                }
+                lambda(items);
+                counter++;
+            }, function(err) {
+                console.error(err); //connection or request error.
             });
-            counter += 1;
-            console.info('Scheduler retrieved ' + items.length + ' items from steam community.');
-        }, function(err) {
-            console.error(err); //connection or request error.
         });
     }
 
-    mine(pageNumber: number, count: number): Promise<string[]> {
-        var promise = new Promise<string[]>((resolve, reject) => {
+    private mine(pageNumber: number, count: number): Promise<Array<Item>> {
+        return new Promise<Array<Item>>((resolve, reject) => {
             var startItemNumber = pageNumber * count;
             var url = "http://steamcommunity.com/market/search/render/?query=&start=" + startItemNumber + "&count=" + count + "&appid=730";
 
@@ -58,7 +58,7 @@ export class Miner implements IMiner {
                     return reject();
                 }
 
-                this.formatter.format(html).done((items) => {
+                this.formatter.format(html).then(items => {
                     var itemsString = JSON.stringify(items);
                     if (itemsString.includes("FAILED")) {
                         reject("Steam XML has some errors. Did not parse correctly.");
@@ -68,6 +68,5 @@ export class Miner implements IMiner {
                 });
             });
         });
-        return promise;
     }
 }
