@@ -4,6 +4,6 @@
         "sourceMap": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "outFile": "../build/index.js"
+        "outDir": "../build"
     }
 }
